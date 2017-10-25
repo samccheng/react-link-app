@@ -7,6 +7,8 @@ import Link from './Link'
 import NotFound from './NotFound'
 import Login from './Login'
 
+const unAuthenticatedPages = ['/', '/signup']
+const authenticatedPages = ['/link']
 
 export const history = createHistory()
 
@@ -21,6 +23,20 @@ const onSignUpPublicPage = () => (
 const onEnterPrivatePage = () => (
   !Meteor.userId() ? (<Signup />) : (<Link />)
 )
+
+export const onAuth = (isAuthenticated) => {
+  const pathname = history.location.pathname
+  const unAuthenticatedPage = unAuthenticatedPages.includes(pathname)
+  const authenticatedPage = authenticatedPages.includes(pathname)
+
+  if (unAuthenticatedPage && isAuthenticated) {
+    history.push('/link')
+  } else if (authenticatedPage && !isAuthenticated) {
+    history.push('/')
+  }
+  console.log(pathname)
+  console.log('isAuthenticated', isAuthenticated)
+}
 
 const App = () => {
   return (
