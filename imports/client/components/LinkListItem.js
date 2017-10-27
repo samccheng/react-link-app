@@ -37,25 +37,25 @@ export default class LinkListItem extends React.Component {
       visitedMessage = `(visited) ${ moment(this.props.lastVisited).fromNow()}`
     }
     return (
-      <p>{this.props.visitedCount} {visitMessage} {visitedMessage}</p>
+      <p className="item__message">{this.props.visitedCount} {visitMessage} {visitedMessage}</p>
     )
   }
 
   render() {
     return (
-      <div>
-        <p>{this.props.url}</p>
-        <p>{this.props.shortUrl}</p>
-        <p>{this.props.visible.toString()}</p>
+      <div className="item">
+        <h2>{this.props.url}</h2>
+        <p className="item__message">{this.props.shortUrl}</p>
         {this.renderStats()}
-        <a href={this.props.shortUrl} target="_blank">visit</a>
+        <a className="button button--pill button--link" href={this.props.shortUrl} target="_blank">visit</a>
         <button
+          className="button button--pill"
           ref={copy => this.copy = copy}
           data-clipboard-text={this.props.shortUrl}
         >
           {this.state.text}
         </button>
-        <button onClick={() => {
+        <button className="button button--pill" onClick={() => {
           Meteor.call('links.setVisibility', this.props._id, !this.props.visible)
         }}>{this.props.visible ? 'hide' : 'unhide'}</button>
       </div>
