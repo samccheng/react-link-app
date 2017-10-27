@@ -2,15 +2,15 @@ import React from 'react'
 import AddLink from './AddLink'
 import LinksList from './LinksList'
 import PrivateHeader from './PrivateHeader'
+import LinksListFilter from './LinksListFilter'
 
-const Link = () => {
+export default () => {
   return (
     <div>
-      <PrivateHeader title="Your links"/>
-      <LinksList />
+      <PrivateHeader title="Your links" />
+      <LinksListFilter />
       <AddLink />
+      <LinksList />
     </div>
   )
 }
-
-export default Link
